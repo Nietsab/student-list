@@ -1,0 +1,27 @@
+services:
+ website:
+  container_name: 'website' 
+  image: 'php:apache'
+  environment: 
+   - USERNAME=username
+   - PASSWORD=password
+  volumes:
+   - './website:/var/www/html'
+  depends_on: 
+   - api
+  ports: 
+   - '8081:5000'
+  networks:
+   - network
+ api: 
+  container_name: 'api'
+  image: 'student-list'
+  volumes:
+   - ./simple_api/student_age.json:/data/student_age.json
+  ports: 
+   - '8082:5000'
+  networks:
+   - network
+
+networks:
+ network:
